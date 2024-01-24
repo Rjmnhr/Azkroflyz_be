@@ -81,6 +81,16 @@ const LinkedinController = {
       res.status(500).json(err);
     }
   },
+  getCollegeBasedOnUG: async (req, res) => {
+    try {
+      const responseData = await LinkedinModel.getCollegeBasedOnUG(req.body);
+
+      return res.status(200).json(responseData);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json(err);
+    }
+  },
 };
 
 module.exports = LinkedinController;
