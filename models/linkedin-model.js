@@ -50,8 +50,30 @@ const LinkedinModel = {
 
        (SELECT COUNT(*) FROM Linkedin_data 
        WHERE '${ug_degree}' IN (mapped_digree_0, mapped_digree_1,mapped_digree_2, mapped_digree_3)
+       AND '${desired_title}' IN (mapped_title_0, mapped_title_1,mapped_title_2, mapped_title_3, mapped_title_4, mapped_title_5,  mapped_title_6, mapped_title_7)) 
+       AS row_counts_ug_and_desired_title,
+
+       (SELECT COUNT(*) FROM Linkedin_data 
+       WHERE '${ug_degree}' IN (mapped_digree_0, mapped_digree_1,mapped_digree_2, mapped_digree_3)
        AND '${ug_tier}' IN (tier_mapping_institute_0, tier_mapping_institute_1,tier_mapping_institute_2, tier_mapping_institute_3)) 
        AS row_counts_ug_degree_and_ug_tier;`;
+
+      const [rows] = await connection.query(query);
+      return rows;
+    } catch (err) {
+      // Handle errors here
+      console.error(err);
+      throw err;
+    } finally {
+      connection.release(); // Release the connection back to the pool
+    }
+  },
+  getTotalCount: async (getTotalCount) => {
+    const connection = await pool.getConnection();
+
+    try {
+      let query = `
+      SELECT COUNT(*) FROM Linkedin_data as total_count`;
 
       const [rows] = await connection.query(query);
       return rows;

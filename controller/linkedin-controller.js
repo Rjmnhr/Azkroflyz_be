@@ -11,6 +11,16 @@ const LinkedinController = {
       res.status(500).json(err);
     }
   },
+  getTotalCount: async (req, res) => {
+    try {
+      const responseData = await LinkedinModel.getTotalCount(req.body);
+
+      return res.status(200).json(responseData);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json(err);
+    }
+  },
   getCollegeTier: async (req, res) => {
     try {
       const responseData = await LinkedinModel.getCollegeTier(req.body);
