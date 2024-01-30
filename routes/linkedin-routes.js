@@ -10,7 +10,7 @@ router.post(
 );
 router.post("/education-output", LinkedinController.educationalOutput);
 router.post("/desired-title-count", LinkedinController.getDesiredTitleCount);
-router.post("/ug-based-colleges", LinkedinController.getCollegeBasedOnUG);
+router.post("/ug-colleges", LinkedinController.getColleges);
 router.get("/total-count", LinkedinController.getTotalCount);
 router.get("/college-tier", LinkedinController.getCollegeTier);
 router.get("/company-size", LinkedinController.getCompanySize);

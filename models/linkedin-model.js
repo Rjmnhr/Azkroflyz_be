@@ -325,30 +325,36 @@ WHERE '${desired_title}' IN (mapped_title_0, mapped_title_1, mapped_title_2, map
       connection.release(); // Release the connection back to the pool
     }
   },
-  getCollegeBasedOnUG: async (getCollegeBasedOnUG) => {
+  getColleges: async (getColleges) => {
     const connection = await pool.getConnection();
-    const { ug_degree } = getCollegeBasedOnUG;
 
     try {
       let query = `
     SELECT DISTINCT
-    mapped_institute_0 AS institute_value
+    mapped_institute_0 AS institute_value,
+    mapped_digree_0 AS ug_degree
     FROM Linkedin_data
-    WHERE '${ug_degree}' IN (mapped_digree_0, mapped_digree_1,mapped_digree_2, mapped_digree_3)
+    UNION
+
+    SELECT DISTINCT
+    mapped_institute_1 AS institute_value,
+    mapped_digree_1 AS ug_degree
+    FROM Linkedin_data
 
     UNION
 
     SELECT DISTINCT
-    mapped_institute_1 AS institute_value
+    mapped_institute_2 AS institute_value,
+    mapped_digree_2 AS ug_degree
     FROM Linkedin_data
-    WHERE '${ug_degree}' IN (mapped_digree_0, mapped_digree_1,mapped_digree_2, mapped_digree_3)
 
     UNION
 
     SELECT DISTINCT
-    mapped_institute_2 AS institute_value
-    FROM Linkedin_data
-    WHERE '${ug_degree}' IN (mapped_digree_0, mapped_digree_1,mapped_digree_2, mapped_digree_3)
+    mapped_institute_3 AS institute_value,
+    mapped_digree_3 AS ug_degree
+    FROM Linkedin_data 
+  
       `;
 
       const [rows] = await connection.query(query);

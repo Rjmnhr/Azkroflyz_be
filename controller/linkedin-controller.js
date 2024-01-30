@@ -91,9 +91,9 @@ const LinkedinController = {
       res.status(500).json(err);
     }
   },
-  getCollegeBasedOnUG: async (req, res) => {
+  getColleges: async (req, res) => {
     try {
-      const responseData = await LinkedinModel.getCollegeBasedOnUG(req.body);
+      const responseData = await LinkedinModel.getColleges(req.body);
 
       return res.status(200).json(responseData);
     } catch (err) {
