@@ -325,6 +325,27 @@ WHERE '${desired_title}' IN (mapped_title_0, mapped_title_1, mapped_title_2, map
       connection.release(); // Release the connection back to the pool
     }
   },
+  getDesiredTitleOutput: async (getDesiredTitleOutput) => {
+    const connection = await pool.getConnection();
+    const { desired_title } = getDesiredTitleOutput;
+
+    try {
+      let query = `
+SELECT * 
+FROM Linkedin_data
+WHERE '${desired_title}' IN (mapped_title_0, mapped_title_1, mapped_title_2, mapped_title_3, mapped_title_4, mapped_title_5, mapped_title_6, mapped_title_7);
+      `;
+
+      const [rows] = await connection.query(query);
+      return rows;
+    } catch (err) {
+      // Handle errors here
+      console.error(err);
+      throw err;
+    } finally {
+      connection.release(); // Release the connection back to the pool
+    }
+  },
   getColleges: async (getColleges) => {
     const connection = await pool.getConnection();
 
